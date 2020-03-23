@@ -5,15 +5,19 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
 
+@EnableScheduling
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
 @EntityScan("com.iyzico.challenge")
@@ -46,5 +50,10 @@ public class DatabaseConfiguration {
         config.setPoolName("my db pool");
         config.setMaximumPoolSize(2);
         return config;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

@@ -10,7 +10,6 @@ As part of our interview process, we expect you to complete a coding challenge i
 Most of iyzico's merchants sell products online. For these merchants the necessary REST services are listed below. We kindly ask you to implement them.
 
 ## Requirements
-
 * Product adding, removing or updating services. 
 * Product listing service which returns product name, description, remaining stock count and price.
 * Payment service for the end user to buy their selected product.
