@@ -1,6 +1,7 @@
 package com.iyzico.challenge.service;
 
 import com.iyzico.challenge.configuration.CustomResponseErrorHandler;
+import com.iyzico.challenge.entity.Product;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -13,10 +14,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 
 @EnableAutoConfiguration
@@ -44,7 +47,24 @@ public class BuyControllerTest {
     }
 
     @Test
-    public void aBuyProduct() {
+    @Transactional
+    @Rollback(false)
+    public void aAddProduct_id_1() {
+
+        Product product = new Product();
+        product.setId(1L);
+        product.setStock(1);
+        product.setPrice(new BigDecimal(2222222));
+        product.setName("ELMA");
+        product.setDescription("Buying test");
+
+        ResponseEntity<String> forEntity = getRestTemplate().postForEntity(endPoint + "/product/add", product, String.class);
+        Assert.assertEquals(forEntity.getStatusCode(), HttpStatus.OK);
+        Assert.assertEquals(forEntity.getBody(), "Succesfully created");
+    }
+
+    @Test
+    public void bBuyProduct() {
         ResponseEntity<String> forObject = getRestTemplate().getForEntity(apiUrl + "?id=1", String.class);
         Assert.assertEquals(forObject.getStatusCode(), HttpStatus.OK);
         Assert.assertEquals(forObject.getBody(), "SOLD");

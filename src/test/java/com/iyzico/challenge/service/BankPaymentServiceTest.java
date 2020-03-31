@@ -34,7 +34,7 @@ public class BankPaymentServiceTest {
         //iyzicoPaymentService.checkNotPaid();
         Thread.sleep(40000);
         List<Payment> fivePayment = paymentRepository.findPaymentsByBankResponseIsNotNull();//If bank returns code it means not null
-        assertEquals(fivePayment.size(), 7);//there was already existed one record
+        assertEquals(fivePayment.size(), 6);//there was already existed one record
     }
 
 

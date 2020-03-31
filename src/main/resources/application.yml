@@ -10,7 +10,7 @@ spring:
     show-sql: true
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 iyzipay:
   setApiKey: sandbox-fSODnVihKfE3dd90vZFYWNjS0kyTrqof

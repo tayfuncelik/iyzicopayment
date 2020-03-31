@@ -71,7 +71,6 @@ public class ProductServiceTest {
     }
 
 
-
     @Test
     public void cUpdateProduct() {
 
@@ -93,12 +92,7 @@ public class ProductServiceTest {
 
     @Test
     public void eDeleteProductById() {
-        List<Product> p = productService.findAllProducts();
-        p.forEach(item->{
-            if(!item.getId().equals(2L)){
-                productService.deleteProductById(item.getId());
-            }
-        });
+        productService.deleteProductById(2L);
     }
 
 }

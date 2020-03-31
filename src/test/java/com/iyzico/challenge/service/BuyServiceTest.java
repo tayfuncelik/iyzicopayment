@@ -4,8 +4,10 @@ import com.iyzico.challenge.entity.Payment;
 import com.iyzico.challenge.entity.Product;
 import com.iyzico.challenge.repository.PaymentRepository;
 import net.bytebuddy.asm.Advice;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @EnableAsync
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BuyServiceTest {
 
     @Autowired
@@ -35,6 +38,21 @@ public class BuyServiceTest {
     @Autowired
     private PaymentRepository paymentRepository;
 
+
+    @Test
+    public void addProductNative() {
+
+        Product product = new Product();
+        product.setId(2L);
+        product.setStock(1);
+        product.setPrice(new BigDecimal(2222222));
+        product.setName("ELMA");
+        product.setDescription("test case");
+
+        productService.addProductNative(product);
+        Product p = productService.findProductById(product.getId());
+        assertEquals(p.getId(), product.getId());
+    }
 
     @Test
     @Transactional
